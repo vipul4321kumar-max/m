@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be Mine? 💖</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7, #ffc3a0);
+    background-size: 400% 400%;
+    animation: bgShift 10s ease infinite;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  @keyframes bgShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .card {
+    background: rgba(255,255,255,0.85);
+    padding: 50px 40px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    max-width: 420px;
+    position: relative;
+    z-index: 10;
+    animation: popIn 0.8s ease;
+  }
+
+  @keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  h1 {
+    color: #d6336c;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .heart {
+    font-size: 3rem;
+    animation: beat 1.2s infinite;
+    display: inline-block;
+  }
+
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    40% { transform: scale(1); }
+  }
+
+  p {
+    color: #555;
+    font-size: 1.1rem;
+    margin: 15px 0 30px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    height: 60px;
+  }
+
+  button {
+    padding: 12px 28px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+  }
+
+  #yesBtn {
+    background: #ff4d6d;
+    color: white;
+    box-shadow: 0 8px 15px rgba(255,77,109,0.4);
+  }
+
+  #yesBtn:hover {
+    transform: scale(1.1);
+  }
+
+  #noBtn {
+    background: #e0e0e0;
+    color: #333;
+    position: relative;
+  }
+
+  #result {
+    margin-top: 25px;
+    font-size: 1.3rem;
+    color: #d6336c;
+    font-weight: bold;
+    min-height: 30px;
+  }
+
+  .floating-heart {
+    position: fixed;
+    bottom: -50px;
+    font-size: 1.5rem;
+    animation: floatUp linear forwards;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="heart">💗</div>
+  <h1>Hey You...</h1>
+  <p>I've been meaning to ask you something important.<br><br>
+  <strong>Will you be mine?</strong></p>
+
+  <div class="buttons">
+    <button id="yesBtn" onclick="sayYes()">Yes 💕</button>
+    <button id="noBtn" onmouseover="runAway()" onclick="runAway()">No</button>
+  </div>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  const noBtn = document.getElementById('noBtn');
+  const buttonsDiv = document.querySelector('.buttons');
+  let yesSize = 1;
+
+  function runAway() {
+    const maxX = buttonsDiv.offsetWidth - noBtn.offsetWidth;
+    const maxY = 40;
+    const randX = (Math.random() - 0.5) * 2 * maxX * 0.6;
+    const randY = (Math.random() - 0.5) * 2 * maxY;
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = `calc(50% + ${randX}px)`;
+    noBtn.style.top = `${randY + 10}px`;
+
+    // Make the Yes button grow a little each time, just for fun
+    yesSize += 0.08;
+    document.getElementById('yesBtn').style.transform = `scale(${yesSize})`;
+  }
+
+  function sayYes() {
+    document.getElementById('result').innerText = "Yay!! 🎉 You just made my day 💖";
+    launchHearts();
+  }
+
+  function launchHearts() {
+    const emojis = ['💖','💕','💗','💓','❤️','💞'];
+    for (let i = 0; i < 30; i++) {
+      setTimeout(() => {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }, i * 100);
+    }
+  }
+</script>
+
+</body>
+</html>
