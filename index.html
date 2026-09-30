@@ -1,128 +1,774 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday 🎂</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  min-height:100vh; overflow:hidden; font-family:Arial,Helvetica,sans-serif;
-  background:radial-gradient(circle at 50% 35%,#35115f,#12051f 65%,#05010b);
-  color:white; display:flex; align-items:center; justify-content:center;
-}
-.stars,.balloons,.confetti{position:fixed;inset:0;pointer-events:none}
-.star{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;animation:twinkle 2s infinite alternate}
-@keyframes twinkle{to{opacity:.2;transform:scale(.4)}}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.card{
-  width:min(900px,92vw); min-height:580px; padding:55px 35px;
-  border:1px solid rgba(255,255,255,.2); border-radius:30px;
-  background:rgba(255,255,255,.09); backdrop-filter:blur(16px);
-  box-shadow:0 25px 80px rgba(0,0,0,.45);
-  text-align:center; position:relative; z-index:2;
-}
-.badge{font-size:15px;letter-spacing:4px;color:#ffd86b;margin-bottom:15px}
-h1{
-  font-size:clamp(48px,9vw,100px); line-height:.95;
-  background:linear-gradient(90deg,#ffd86b,#ff7bd5,#8fd3ff);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  text-shadow:0 0 35px rgba(255,100,220,.2);
-}
-.subtitle{font-size:clamp(18px,3vw,28px);margin:25px 0;color:#eee}
-.name{color:#ffd86b;font-weight:800}
-.cake{font-size:90px;margin:20px 0;filter:drop-shadow(0 0 18px #ff7bd5)}
-button{
-  border:0;border-radius:999px;padding:15px 30px;font-size:17px;
-  font-weight:700;color:#1a0626;background:linear-gradient(90deg,#ffd86b,#ff8bd8);
-  cursor:pointer;box-shadow:0 8px 30px rgba(255,120,210,.35);
-  transition:.2s;
-}
-button:hover{transform:translateY(-3px) scale(1.03)}
-.message{
-  max-height:0;opacity:0;overflow:hidden;transition:1s ease;
-  margin:0 auto;max-width:650px;color:#eee;line-height:1.7;font-size:18px;
-}
-.message.show{max-height:200px;opacity:1;margin-top:25px}
-.balloon{
-  position:absolute;bottom:-120px;width:55px;height:70px;border-radius:50%;
-  animation:float 9s linear infinite;opacity:.8
-}
-.balloon:after{content:"";position:absolute;left:50%;top:68px;width:1px;height:120px;background:#aaa}
-@keyframes float{to{transform:translateY(-115vh) rotate(12deg)}}
-.confetti-piece{
-  position:absolute;width:9px;height:16px;top:-20px;animation:fall 5s linear infinite
-}
-@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
-.footer{margin-top:28px;font-size:13px;color:#aaa}
-</style>
+  <title>Something Special 🎂</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      overflow:hidden;
+      color:#fff;
+      background:
+        radial-gradient(circle at top,#ff7eb3 0%,#6a2c70 45%,#1b1028 100%);
+    }
+
+    /* Animated background */
+    .bubble{
+      position:fixed;
+      bottom:-100px;
+      border-radius:50%;
+      background:rgba(255,255,255,.12);
+      animation:floatUp linear infinite;
+      pointer-events:none;
+    }
+
+    @keyframes floatUp{
+      from{
+        transform:translateY(0);
+        opacity:0;
+      }
+
+      20%{
+        opacity:1;
+      }
+
+      to{
+        transform:translateY(-120vh);
+        opacity:0;
+      }
+    }
+
+    .container{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+    }
+
+    .card{
+      width:100%;
+      max-width:680px;
+      min-height:520px;
+      padding:40px 30px;
+      text-align:center;
+
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:30px;
+
+      backdrop-filter:blur(18px);
+
+      box-shadow:0 25px 70px rgba(0,0,0,.35);
+
+      position:relative;
+      z-index:2;
+    }
+
+    .step{
+      display:none;
+      animation:fade .7s ease;
+    }
+
+    .step.active{
+      display:block;
+    }
+
+    @keyframes fade{
+      from{
+        opacity:0;
+        transform:translateY(25px) scale(.97);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+      }
+    }
+
+    .step-number{
+      font-size:12px;
+      letter-spacing:4px;
+      opacity:.7;
+      margin-bottom:20px;
+    }
+
+    h1{
+      font-size:42px;
+      margin-bottom:18px;
+    }
+
+    h2{
+      font-size:30px;
+      margin-bottom:18px;
+    }
+
+    p{
+      font-size:17px;
+      line-height:1.8;
+      opacity:.92;
+      margin-bottom:25px;
+    }
+
+    .highlight{
+      color:#ffe0f0;
+      font-weight:bold;
+    }
+
+    button{
+      border:none;
+      padding:14px 30px;
+      border-radius:30px;
+
+      background:#fff;
+      color:#6a2c70;
+
+      font-size:15px;
+      font-weight:bold;
+
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    button:hover{
+      transform:translateY(-3px) scale(1.05);
+      box-shadow:0 10px 30px rgba(255,255,255,.25);
+    }
+
+    /* Gift box */
+    .gift{
+      width:120px;
+      height:100px;
+      margin:25px auto;
+      background:#ff477e;
+      border-radius:10px;
+      position:relative;
+      animation:giftShake 2s infinite;
+    }
+
+    .gift:before{
+      content:"";
+      position:absolute;
+      width:100%;
+      height:22px;
+      background:#ffd166;
+      top:-18px;
+      left:0;
+      border-radius:8px;
+    }
+
+    .gift:after{
+      content:"🎀";
+      position:absolute;
+      top:-45px;
+      left:35px;
+      font-size:50px;
+    }
+
+    @keyframes giftShake{
+      0%,100%{transform:rotate(0);}
+      25%{transform:rotate(3deg);}
+      75%{transform:rotate(-3deg);}
+    }
+
+    /* Cake */
+    .cake{
+      width:170px;
+      height:100px;
+      margin:30px auto;
+      position:relative;
+      background:#ff8fba;
+      border-radius:12px 12px 20px 20px;
+      box-shadow:inset 0 -10px rgba(0,0,0,.08);
+    }
+
+    .cake:before{
+      content:"";
+      position:absolute;
+      width:100%;
+      height:28px;
+      background:#fff3f8;
+      top:0;
+      left:0;
+      border-radius:50%;
+    }
+
+    .candle{
+      width:12px;
+      height:50px;
+      background:#ffd166;
+      position:absolute;
+      top:-48px;
+      left:79px;
+      border-radius:5px;
+    }
+
+    .flame{
+      width:20px;
+      height:28px;
+      background:#ffdc5d;
+      border-radius:50% 50% 50% 50%;
+      position:absolute;
+      top:-25px;
+      left:-4px;
+      animation:flicker .5s infinite alternate;
+    }
+
+    @keyframes flicker{
+      from{transform:scale(1);}
+      to{transform:scale(1.25);}
+    }
+
+    /* Countdown */
+    .countdown{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      margin:25px 0;
+    }
+
+    .time-box{
+      width:80px;
+      padding:14px 5px;
+      background:rgba(255,255,255,.15);
+      border-radius:15px;
+    }
+
+    .time-box span{
+      display:block;
+      font-size:24px;
+      font-weight:bold;
+    }
+
+    .time-box small{
+      opacity:.75;
+    }
+
+    /* Balloons */
+    .balloon{
+      position:fixed;
+      bottom:-100px;
+      z-index:1;
+      font-size:45px;
+      animation:balloonRise linear forwards;
+    }
+
+    @keyframes balloonRise{
+      to{
+        transform:translateY(-120vh) rotate(20deg);
+        opacity:0;
+      }
+    }
+
+    /* Confetti */
+    .confetti{
+      position:fixed;
+      top:-20px;
+      width:10px;
+      height:16px;
+      z-index:10;
+      animation:fall linear forwards;
+    }
+
+    @keyframes fall{
+      to{
+        transform:translateY(110vh) rotate(720deg);
+      }
+    }
+
+    .final-message{
+      font-size:20px;
+      color:#fff0f7;
+      line-height:1.8;
+    }
+
+    @media(max-width:600px){
+
+      .card{
+        padding:35px 18px;
+        min-height:500px;
+      }
+
+      h1{
+        font-size:32px;
+      }
+
+      h2{
+        font-size:25px;
+      }
+
+      p{
+        font-size:14px;
+      }
+
+      .countdown{
+        gap:7px;
+      }
+
+      .time-box{
+        width:65px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="stars" id="stars"></div>
-<div class="balloons" id="balloons"></div>
-<div class="confetti" id="confetti"></div>
+<div class="container">
 
-<main class="card">
-  <div class="badge">A LITTLE SURPRISE FOR YOU ✨</div>
-  <h1>Happy Birthday!</h1>
-  <p class="subtitle">Wishing you an amazing day, <span class="name">Someone Special 💛</span></p>
-  <div class="cake">🎂</div>
+  <div class="card">
 
-  <button onclick="showWish()">Open Your Birthday Wish 🎁</button>
+    <!-- STEP 1 -->
+    <section class="step active" id="step1">
 
-  <div class="message" id="message">
-    May your new year of life be filled with happiness, success,
-    beautiful memories and lots of reasons to smile. 🌟<br>
-    Keep shining, keep dreaming, and never stop being awesome! 💫
+      <div class="step-number">
+        SOMETHING SPECIAL IS WAITING...
+      </div>
+
+      <h1>Hey... 👀</h1>
+
+      <p>
+        Before you continue, just know that
+        <span class="highlight">2 October</span>
+        is not going to be an ordinary day. 🎂
+      </p>
+
+      <div class="gift"></div>
+
+      <button onclick="nextStep(2)">
+        Open The Surprise 🎁
+      </button>
+
+    </section>
+
+
+    <!-- STEP 2 -->
+    <section class="step" id="step2">
+
+      <div class="step-number">
+        A SPECIAL DATE 📅
+      </div>
+
+      <h2>2 October ✨</h2>
+
+      <p>
+        Some dates are just dates...
+        <br>
+        But this one is special because
+        <span class="highlight">you were born on this day.</span>
+      </p>
+
+      <button onclick="nextStep(3)">
+        Continue 💫
+      </button>
+
+    </section>
+
+
+    <!-- STEP 3 -->
+    <section class="step" id="step3">
+
+      <div class="step-number">
+        SOMETHING TO LOOK FORWARD TO
+      </div>
+
+      <h2>The Countdown ⏳</h2>
+
+      <p>
+        The special day is getting closer...
+      </p>
+
+      <div class="countdown">
+
+        <div class="time-box">
+          <span id="days">00</span>
+          <small>Days</small>
+        </div>
+
+        <div class="time-box">
+          <span id="hours">00</span>
+          <small>Hours</small>
+        </div>
+
+        <div class="time-box">
+          <span id="minutes">00</span>
+          <small>Minutes</small>
+        </div>
+
+        <div class="time-box">
+          <span id="seconds">00</span>
+          <small>Seconds</small>
+        </div>
+
+      </div>
+
+      <button onclick="nextStep(4)">
+        Keep Going →
+      </button>
+
+    </section>
+
+
+    <!-- STEP 4 -->
+    <section class="step" id="step4">
+
+      <div class="step-number">
+        A LITTLE MESSAGE 💌
+      </div>
+
+      <h2>One Thing About You...</h2>
+
+      <p>
+        You have a way of making ordinary moments
+        feel a little more special.
+      </p>
+
+      <p>
+        So today this little website exists
+        for one simple reason...
+        <span class="highlight">to make you smile.</span> 😊
+      </p>
+
+      <button onclick="nextStep(5)">
+        Next 🌸
+      </button>
+
+    </section>
+
+
+    <!-- STEP 5 -->
+    <section class="step" id="step5">
+
+      <div class="step-number">
+        THE CAKE IS READY 🎂
+      </div>
+
+      <h2>Make A Wish</h2>
+
+      <div class="cake">
+        <div class="candle">
+          <div class="flame"></div>
+        </div>
+      </div>
+
+      <p>
+        Close your eyes for a moment...
+        <br>
+        And make a beautiful wish. ✨
+      </p>
+
+      <button onclick="nextStep(6)">
+        Wish Made 💫
+      </button>
+
+    </section>
+
+
+    <!-- STEP 6 -->
+    <section class="step" id="step6">
+
+      <div class="step-number">
+        A SMALL REMINDER 🌷
+      </div>
+
+      <h2>You Deserve Good Things</h2>
+
+      <p>
+        More happiness.
+        <br>
+        More laughter.
+        <br>
+        More beautiful memories.
+        <br>
+        And many reasons to smile. 💖
+      </p>
+
+      <button onclick="nextStep(7)">
+        Continue →
+      </button>
+
+    </section>
+
+
+    <!-- STEP 7 -->
+    <section class="step" id="step7">
+
+      <div class="step-number">
+        ANOTHER YEAR, ANOTHER CHAPTER 📖
+      </div>
+
+      <h2>A New Beginning</h2>
+
+      <p>
+        A new year of your life is starting.
+      </p>
+
+      <p>
+        May it bring new opportunities,
+        unexpected happiness
+        and moments worth remembering. ✨
+      </p>
+
+      <button onclick="nextStep(8)">
+        Next 💌
+      </button>
+
+    </section>
+
+
+    <!-- STEP 8 -->
+    <section class="step" id="step8">
+
+      <div class="step-number">
+        ALMOST THERE 👀
+      </div>
+
+      <h2>One Last Surprise...</h2>
+
+      <p>
+        You've reached almost the end.
+      </p>
+
+      <p class="highlight">
+        But the best message is still waiting. 🎁
+      </p>
+
+      <button onclick="nextStep(9)">
+        Reveal It ✨
+      </button>
+
+    </section>
+
+
+    <!-- STEP 9 -->
+    <section class="step" id="step9">
+
+      <div class="step-number">
+        READY? 🎉
+      </div>
+
+      <h2>3... 2... 1...</h2>
+
+      <p>
+        Get ready for your birthday surprise! 🎂
+      </p>
+
+      <button onclick="nextStep(10); celebrate();">
+        Celebrate 🎊
+      </button>
+
+    </section>
+
+
+    <!-- STEP 10 -->
+    <section class="step" id="step10">
+
+      <div class="step-number">
+        🎂 HAPPY BIRTHDAY 🎂
+      </div>
+
+      <h1>Happy Birthday Mona! 🎉</h1>
+
+      <p class="final-message">
+        Happy Birthday on
+        <span class="highlight">2 October!</span>
+        🎂✨
+        <br><br>
+
+        May your life be filled with happiness,
+        success, laughter and beautiful memories.
+        <br><br>
+
+        Keep smiling.
+        Keep shining.
+        And keep being amazing. 💖
+      </p>
+
+      <button onclick="celebrate()">
+        Celebrate Again 🎊
+      </button>
+
+    </section>
+
   </div>
+</div>
 
-  <div class="footer">Made with ❤️ &nbsp;•&nbsp; Have the happiest birthday!</div>
-</main>
 
 <script>
-const stars=document.getElementById("stars");
-for(let i=0;i<90;i++){
-  const s=document.createElement("span"); s.className="star";
-  s.style.left=Math.random()*100+"%"; s.style.top=Math.random()*100+"%";
-  s.style.animationDelay=Math.random()*2+"s"; stars.appendChild(s);
+
+/* Step Navigation */
+
+function nextStep(number){
+
+  document.querySelectorAll(".step").forEach(step=>{
+    step.classList.remove("active");
+  });
+
+  document.getElementById("step"+number)
+    .classList.add("active");
 }
 
-const balloons=document.getElementById("balloons");
-const colors=["#ff6b9d","#ffd86b","#7bdcff","#a78bfa","#70e1a0"];
-for(let i=0;i<12;i++){
-  const b=document.createElement("div"); b.className="balloon";
-  b.style.left=Math.random()*100+"%";
-  b.style.background=colors[i%colors.length];
-  b.style.animationDuration=(7+Math.random()*6)+"s";
-  b.style.animationDelay=(-Math.random()*10)+"s";
-  balloons.appendChild(b);
+
+/* Countdown to 2 October */
+
+function updateCountdown(){
+
+  const now = new Date();
+
+  let year = now.getFullYear();
+
+  let birthday = new Date(year, 9, 2, 0, 0, 0);
+
+  if(now > birthday){
+    birthday = new Date(year + 1, 9, 2, 0, 0, 0);
+  }
+
+  const difference = birthday - now;
+
+  const days = Math.floor(
+    difference / (1000 * 60 * 60 * 24)
+  );
+
+  const hours = Math.floor(
+    (difference / (1000 * 60 * 60)) % 24
+  );
+
+  const minutes = Math.floor(
+    (difference / (1000 * 60)) % 60
+  );
+
+  const seconds = Math.floor(
+    (difference / 1000) % 60
+  );
+
+  document.getElementById("days").innerText =
+    String(days).padStart(2,"0");
+
+  document.getElementById("hours").innerText =
+    String(hours).padStart(2,"0");
+
+  document.getElementById("minutes").innerText =
+    String(minutes).padStart(2,"0");
+
+  document.getElementById("seconds").innerText =
+    String(seconds).padStart(2,"0");
 }
 
-const confetti=document.getElementById("confetti");
-for(let i=0;i<80;i++){
-  const c=document.createElement("div"); c.className="confetti-piece";
-  c.style.left=Math.random()*100+"%";
-  c.style.background=colors[i%colors.length];
-  c.style.animationDelay=(-Math.random()*5)+"s";
-  c.style.animationDuration=(3+Math.random()*4)+"s";
-  c.style.transform=`rotate(${Math.random()*360}deg)`;
-  confetti.appendChild(c);
-}
+setInterval(updateCountdown,1000);
+updateCountdown();
 
-function showWish(){
-  document.getElementById("message").classList.toggle("show");
-  for(let i=0;i<18;i++){
+
+/* Balloons */
+
+function balloons(amount){
+
+  const emojis=["🎈","🎈","🎈","💖","🎉"];
+
+  for(let i=0;i<amount;i++){
+
+    const balloon=document.createElement("div");
+
+    balloon.className="balloon";
+
+    balloon.innerHTML=
+      emojis[Math.floor(Math.random()*emojis.length)];
+
+    balloon.style.left=Math.random()*100+"vw";
+
+    balloon.style.animationDuration=
+      (5+Math.random()*4)+"s";
+
+    document.body.appendChild(balloon);
+
     setTimeout(()=>{
-      const c=document.createElement("div"); c.className="confetti-piece";
-      c.style.left=(45+Math.random()*10)+"%";
-      c.style.top="45%"; c.style.background=colors[i%colors.length];
-      c.style.animationDuration="2s";
-      confetti.appendChild(c);
-      setTimeout(()=>c.remove(),2200);
-    },i*45);
+      balloon.remove();
+    },9000);
   }
 }
+
+
+/* Confetti */
+
+function confetti(amount){
+
+  const symbols=["✨","🎊","💖","⭐","🎉"];
+
+  for(let i=0;i<amount;i++){
+
+    const piece=document.createElement("div");
+
+    piece.className="confetti";
+
+    piece.innerHTML=
+      symbols[Math.floor(Math.random()*symbols.length)];
+
+    piece.style.left=Math.random()*100+"vw";
+
+    piece.style.animationDuration=
+      (3+Math.random()*3)+"s";
+
+    piece.style.fontSize=
+      (12+Math.random()*18)+"px";
+
+    document.body.appendChild(piece);
+
+    setTimeout(()=>{
+      piece.remove();
+    },7000);
+  }
+}
+
+
+/* Celebration */
+
+function celebrate(){
+
+  balloons(30);
+
+  confetti(70);
+}
+
+
+/* Background bubbles */
+
+function createBubble(){
+
+  const bubble=document.createElement("div");
+
+  bubble.className="bubble";
+
+  const size=20+Math.random()*80;
+
+  bubble.style.width=size+"px";
+  bubble.style.height=size+"px";
+
+  bubble.style.left=Math.random()*100+"vw";
+
+  bubble.style.animationDuration=
+    (8+Math.random()*8)+"s";
+
+  document.body.appendChild(bubble);
+
+  setTimeout(()=>{
+    bubble.remove();
+  },16000);
+}
+
+setInterval(createBubble,1000);
+
 </script>
+
 </body>
 </html>
+```
