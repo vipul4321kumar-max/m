@@ -2,182 +2,127 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Will You Be Mine? 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 🎂</title>
 <style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #ffdde1, #ee9ca7, #ffc3a0);
-    background-size: 400% 400%;
-    animation: bgShift 10s ease infinite;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden;
-    position: relative;
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh; overflow:hidden; font-family:Arial,Helvetica,sans-serif;
+  background:radial-gradient(circle at 50% 35%,#35115f,#12051f 65%,#05010b);
+  color:white; display:flex; align-items:center; justify-content:center;
+}
+.stars,.balloons,.confetti{position:fixed;inset:0;pointer-events:none}
+.star{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;animation:twinkle 2s infinite alternate}
+@keyframes twinkle{to{opacity:.2;transform:scale(.4)}}
 
-  @keyframes bgShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  .card {
-    background: rgba(255,255,255,0.85);
-    padding: 50px 40px;
-    border-radius: 25px;
-    text-align: center;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-    max-width: 420px;
-    position: relative;
-    z-index: 10;
-    animation: popIn 0.8s ease;
-  }
-
-  @keyframes popIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  h1 {
-    color: #d6336c;
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-
-  .heart {
-    font-size: 3rem;
-    animation: beat 1.2s infinite;
-    display: inline-block;
-  }
-
-  @keyframes beat {
-    0%, 100% { transform: scale(1); }
-    25% { transform: scale(1.2); }
-    40% { transform: scale(1); }
-  }
-
-  p {
-    color: #555;
-    font-size: 1.1rem;
-    margin: 15px 0 30px;
-  }
-
-  .buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    position: relative;
-    height: 60px;
-  }
-
-  button {
-    padding: 12px 28px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.2s ease;
-  }
-
-  #yesBtn {
-    background: #ff4d6d;
-    color: white;
-    box-shadow: 0 8px 15px rgba(255,77,109,0.4);
-  }
-
-  #yesBtn:hover {
-    transform: scale(1.1);
-  }
-
-  #noBtn {
-    background: #e0e0e0;
-    color: #333;
-    position: relative;
-  }
-
-  #result {
-    margin-top: 25px;
-    font-size: 1.3rem;
-    color: #d6336c;
-    font-weight: bold;
-    min-height: 30px;
-  }
-
-  .floating-heart {
-    position: fixed;
-    bottom: -50px;
-    font-size: 1.5rem;
-    animation: floatUp linear forwards;
-    pointer-events: none;
-    z-index: 5;
-  }
-
-  @keyframes floatUp {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-  }
+.card{
+  width:min(900px,92vw); min-height:580px; padding:55px 35px;
+  border:1px solid rgba(255,255,255,.2); border-radius:30px;
+  background:rgba(255,255,255,.09); backdrop-filter:blur(16px);
+  box-shadow:0 25px 80px rgba(0,0,0,.45);
+  text-align:center; position:relative; z-index:2;
+}
+.badge{font-size:15px;letter-spacing:4px;color:#ffd86b;margin-bottom:15px}
+h1{
+  font-size:clamp(48px,9vw,100px); line-height:.95;
+  background:linear-gradient(90deg,#ffd86b,#ff7bd5,#8fd3ff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 35px rgba(255,100,220,.2);
+}
+.subtitle{font-size:clamp(18px,3vw,28px);margin:25px 0;color:#eee}
+.name{color:#ffd86b;font-weight:800}
+.cake{font-size:90px;margin:20px 0;filter:drop-shadow(0 0 18px #ff7bd5)}
+button{
+  border:0;border-radius:999px;padding:15px 30px;font-size:17px;
+  font-weight:700;color:#1a0626;background:linear-gradient(90deg,#ffd86b,#ff8bd8);
+  cursor:pointer;box-shadow:0 8px 30px rgba(255,120,210,.35);
+  transition:.2s;
+}
+button:hover{transform:translateY(-3px) scale(1.03)}
+.message{
+  max-height:0;opacity:0;overflow:hidden;transition:1s ease;
+  margin:0 auto;max-width:650px;color:#eee;line-height:1.7;font-size:18px;
+}
+.message.show{max-height:200px;opacity:1;margin-top:25px}
+.balloon{
+  position:absolute;bottom:-120px;width:55px;height:70px;border-radius:50%;
+  animation:float 9s linear infinite;opacity:.8
+}
+.balloon:after{content:"";position:absolute;left:50%;top:68px;width:1px;height:120px;background:#aaa}
+@keyframes float{to{transform:translateY(-115vh) rotate(12deg)}}
+.confetti-piece{
+  position:absolute;width:9px;height:16px;top:-20px;animation:fall 5s linear infinite
+}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.footer{margin-top:28px;font-size:13px;color:#aaa}
 </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="heart">💗</div>
-  <h1>Hey You...</h1>
-  <p>I've been meaning to ask you something important.<br><br>
-  <strong>Will you be mine?</strong></p>
+<div class="stars" id="stars"></div>
+<div class="balloons" id="balloons"></div>
+<div class="confetti" id="confetti"></div>
 
-  <div class="buttons">
-    <button id="yesBtn" onclick="sayYes()">Yes 💕</button>
-    <button id="noBtn" onmouseover="runAway()" onclick="runAway()">No</button>
+<main class="card">
+  <div class="badge">A LITTLE SURPRISE FOR YOU ✨</div>
+  <h1>Happy Birthday!</h1>
+  <p class="subtitle">Wishing you an amazing day, <span class="name">Someone Special 💛</span></p>
+  <div class="cake">🎂</div>
+
+  <button onclick="showWish()">Open Your Birthday Wish 🎁</button>
+
+  <div class="message" id="message">
+    May your new year of life be filled with happiness, success,
+    beautiful memories and lots of reasons to smile. 🌟<br>
+    Keep shining, keep dreaming, and never stop being awesome! 💫
   </div>
 
-  <div id="result"></div>
-</div>
+  <div class="footer">Made with ❤️ &nbsp;•&nbsp; Have the happiest birthday!</div>
+</main>
 
 <script>
-  const noBtn = document.getElementById('noBtn');
-  const buttonsDiv = document.querySelector('.buttons');
-  let yesSize = 1;
+const stars=document.getElementById("stars");
+for(let i=0;i<90;i++){
+  const s=document.createElement("span"); s.className="star";
+  s.style.left=Math.random()*100+"%"; s.style.top=Math.random()*100+"%";
+  s.style.animationDelay=Math.random()*2+"s"; stars.appendChild(s);
+}
 
-  function runAway() {
-    const maxX = buttonsDiv.offsetWidth - noBtn.offsetWidth;
-    const maxY = 40;
-    const randX = (Math.random() - 0.5) * 2 * maxX * 0.6;
-    const randY = (Math.random() - 0.5) * 2 * maxY;
-    noBtn.style.position = 'absolute';
-    noBtn.style.left = `calc(50% + ${randX}px)`;
-    noBtn.style.top = `${randY + 10}px`;
+const balloons=document.getElementById("balloons");
+const colors=["#ff6b9d","#ffd86b","#7bdcff","#a78bfa","#70e1a0"];
+for(let i=0;i<12;i++){
+  const b=document.createElement("div"); b.className="balloon";
+  b.style.left=Math.random()*100+"%";
+  b.style.background=colors[i%colors.length];
+  b.style.animationDuration=(7+Math.random()*6)+"s";
+  b.style.animationDelay=(-Math.random()*10)+"s";
+  balloons.appendChild(b);
+}
 
-    // Make the Yes button grow a little each time, just for fun
-    yesSize += 0.08;
-    document.getElementById('yesBtn').style.transform = `scale(${yesSize})`;
+const confetti=document.getElementById("confetti");
+for(let i=0;i<80;i++){
+  const c=document.createElement("div"); c.className="confetti-piece";
+  c.style.left=Math.random()*100+"%";
+  c.style.background=colors[i%colors.length];
+  c.style.animationDelay=(-Math.random()*5)+"s";
+  c.style.animationDuration=(3+Math.random()*4)+"s";
+  c.style.transform=`rotate(${Math.random()*360}deg)`;
+  confetti.appendChild(c);
+}
+
+function showWish(){
+  document.getElementById("message").classList.toggle("show");
+  for(let i=0;i<18;i++){
+    setTimeout(()=>{
+      const c=document.createElement("div"); c.className="confetti-piece";
+      c.style.left=(45+Math.random()*10)+"%";
+      c.style.top="45%"; c.style.background=colors[i%colors.length];
+      c.style.animationDuration="2s";
+      confetti.appendChild(c);
+      setTimeout(()=>c.remove(),2200);
+    },i*45);
   }
-
-  function sayYes() {
-    document.getElementById('result').innerText = "Yay!! 🎉 You just made my day 💖";
-    launchHearts();
-  }
-
-  function launchHearts() {
-    const emojis = ['💖','💕','💗','💓','❤️','💞'];
-    for (let i = 0; i < 30; i++) {
-      setTimeout(() => {
-        const heart = document.createElement('div');
-        heart.className = 'floating-heart';
-        heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (3 + Math.random() * 3) + 's';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
-      }, i * 100);
-    }
-  }
+}
 </script>
-
 </body>
 </html>
